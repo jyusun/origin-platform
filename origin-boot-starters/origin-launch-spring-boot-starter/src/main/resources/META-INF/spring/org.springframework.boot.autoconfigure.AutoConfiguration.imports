@@ -1,0 +1,6 @@
+com.jyusun.origin.base.launch.scan.config.ScanCommAutoConfiguration
+com.jyusun.origin.base.launch.server.config.ServerConfiguration
+com.jyusun.origin.base.launch.web.config.WebMvcConfiguration
+com.jyusun.origin.base.launch.jackson.config.JacksonConfiguration
+com.jyusun.origin.base.launch.fastjson.config.FastJsonConfiguration
+com.jyusun.origin.base.launch.feign.config.FeignConfiguration

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.jyusun.origin</groupId>
+        <artifactId>origin-platform</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>origin-boot-starters</artifactId>
+    <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
+    <description>公共基础</description>
+
+    <!-- 开发者信息 -->
+    <developers>
+        <developer>
+            <id>jyusun</id>
+            <name>ayu</name>
+            <email>jyusun@foxmail.com</email>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>origin-boot-dependencies</module>
+        <module>origin-launch-spring-boot-starter</module>
+        <module>origin-mybatis-spring-boot-starter</module>
+        <module>origin-redis-spring-boot-starter</module>
+        <module>origin-defthread-spring-boot-starter</module>
+
+        <module>origin-mail-spring-boot-starter</module>
+        <module>origin-swagger-spring-boot-starter</module>
+        <module>origin-logger-spring-boot-starter</module>
+        <module>origin-excel-spring-boot-starter</module>
+        <module>origin-translate-spring-boot-starter</module>
+        <module>origin-chatgpt-spring-boot-starter</module>
+        <module>origin-security-spring-boot-starter</module>
+    </modules>
+
+    <dependencies>
+        <!-- origin-boot-dependencies -->
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>origin-core-common</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- origin-boot-dependencies -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-boot-dependencies</artifactId>
+                <version>${project.parent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

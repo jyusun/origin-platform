@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.jyusun.origin.base.mybatis.CoreMapper">
+
+    <!-- 通用映射关系 仅ID -->
+    <resultMap id="result_object" type="com.jyusun.origin.base.mybatis.data.BaseObject">
+        <id column="sid" property="sid" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>
+        <result column="updated_time" property="updateTime" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 通用映射关系 BaseData-->
+    <resultMap id="result_data" type="com.jyusun.origin.base.mybatis.data.BaseData" >
+        <result column="remarks" property="remarks" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" javaType="java.lang.Boolean" jdbcType="TINYINT"/>
+        <result column="revision" property="revision" javaType="java.lang.Boolean" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 通用映射关系 BaseTenant-->
+    <resultMap id="result_tenant" type="com.jyusun.origin.base.mybatis.data.BaseTenant" extends="result_data">
+        <result column="tenant_id" property="tenantId" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- mysql分页通用结尾 -->
+    <sql id="page_sql">
+        limit
+        #{pageQuery.page,jdbcType=INTEGER} ,
+        #{pageQuery.pageIndex,jdbcType=INTEGER}
+    </sql>
+
+    <!-- Like left -->
+    <sql id="like_left_sql">
+        concat
+        ('%',
+    </sql>
+    <!-- Like right -->
+    <sql id="like_right_sql">
+        ,'%')
+    </sql>
+
+    <sql id="increment_sql">
+        select LAST_INSERT_ID() as value
+    </sql>
+</mapper>

@@ -1,0 +1,1 @@
+package com.jyusun.origin.base.logger.model.dto;

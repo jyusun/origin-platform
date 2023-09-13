@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.jyusun.origin</groupId>
+        <artifactId>origin-dependencies-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>origin-boot-dependencies</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
+    <description>Boot-依赖管理</description>
+
+    <!-- 开发者信息 -->
+    <developers>
+        <developer>
+            <id>jyusun</id>
+            <name>ayu</name>
+            <email>jyusun@foxmail.com</email>
+        </developer>
+    </developers>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- logger -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-logger-spring-boot-starter</artifactId>
+                <version>${origin.development.version}</version>
+            </dependency>
+            <!-- def thread -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-defthread-spring-boot-starter</artifactId>
+                <version>${origin.development.version}</version>
+            </dependency>
+            <!-- redis -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-redis-spring-boot-starter</artifactId>
+                <version>${origin.development.version}</version>
+            </dependency>
+            <!-- excel -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-excel-spring-boot-starter</artifactId>
+                <version>${origin.development.version}</version>
+            </dependency>
+
+            <!-- 基础启动 -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-launch-spring-boot-starter</artifactId>
+                <version>${origin.development.version}</version>
+            </dependency>
+
+            <!-- 数据库操作 -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-mybatis-spring-boot-starter</artifactId>
+                <version>${origin.development.version}</version>
+            </dependency>
+
+            <!-- 对象存储操作 -->
+<!--            <dependency>-->
+<!--                <groupId>${project.parent.groupId}</groupId>-->
+<!--                <artifactId>origin-oss-spring-boot-starter</artifactId>-->
+<!--                <version>${origin.development.version}</version>-->
+<!--            </dependency>-->
+
+            <!-- 邮件发送操作 -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-mail-spring-boot-starter</artifactId>
+                <version>${origin.development.version}</version>
+            </dependency>
+
+            <!-- swagger -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-swagger-spring-boot-starter</artifactId>
+                <version>${origin.development.version}</version>
+            </dependency>
+
+            <!-- translate -->
+            <dependency>
+                <groupId>${project.parent.groupId}</groupId>
+                <artifactId>origin-translate-spring-boot-starter</artifactId>
+                <version>${origin.development.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+</project>

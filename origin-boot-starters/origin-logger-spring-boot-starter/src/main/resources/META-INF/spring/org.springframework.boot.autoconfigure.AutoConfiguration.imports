@@ -1,0 +1,2 @@
+com.jyusun.origin.base.logger.config.LoggerAutoConfiguration
+com.jyusun.origin.base.logger.config.LoggerAsyncTaskConfiguration

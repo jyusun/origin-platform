@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.2</version>
+    </parent>
+
+    <groupId>com.jyusun.origin</groupId>
+    <artifactId>origin-platform</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>${project.artifactId}</name>
+    <description>起猿-技术实践平台</description>
+    <packaging>pom</packaging>
+
+    <!-- Git 地址配置 -->
+    <scm>
+        <url>https://gitee.com/platform/origin-platform</url>
+        <connection>scm:git:git://gitee.com/platform/origin-platform.git</connection>
+        <developerConnection>scm:git:ssh://git@gitee.com:platform/origin-platform.git</developerConnection>
+        <tag>master</tag>
+    </scm>
+
+    <modules>
+        <module>origin-build-dependencies</module>
+        <module>origin-dependencies-parent</module>
+        <module>origin-core-common</module>
+        <module>origin-boot-starters</module>
+        <module>origin-service-parent</module>
+    </modules>
+
+    <properties>
+        <!-- Maven 仓库配置 -->
+        <repository.url>https://jyusun-maven.pkg.coding.net/repository/platform/public/</repository.url>
+
+        <resource.delimiter>@</resource.delimiter>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>17</java.version>
+
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <main.basedir>${basedir}</main.basedir>
+        <docs.main>${project.artifactId}</docs.main>
+
+        <!-- Projects 版本配置 -->
+        <origin.version>1.0.0</origin.version>
+        <origin.development.version>1.0.0-SNAPSHOT</origin.development.version>
+
+
+        <!-- Sonar -->
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+        <sonar.language>java</sonar.language>
+
+        <!-- Plugins -->
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <spring-javaformat-maven-plugin.version>0.0.39</spring-javaformat-maven-plugin.version>
+        <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 基础构建管理 -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>origin-build-dependencies</artifactId>
+                <version>${origin.development.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.jyusun.origin</groupId>
+                <artifactId>origin-core-common</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <!-- 公共中央仓库 -->
+        <profile>
+            <id>env-origin</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <repositories>
+                <!-- 源码仓库 -->
+                <repository>
+                    <id>public</id>
+                    <name>tx-public</name>
+                    <url>${repository.url}</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                </repository>
+            </repositories>
+
+            <pluginRepositories>
+                <!-- 插件仓库 -->
+                <pluginRepository>
+                    <id>public</id>
+                    <name>tx-public</name>
+                    <url>${repository.url}</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+
+        </profile>
+
+        <!-- 代码检查 逻辑检查、格式化检查 -->
+        <profile>
+            <id>checkstyle</id>
+            <build>
+                <plugins>
+                   <plugin>
+                       <groupId>org.apache.maven.plugins</groupId>
+                       <artifactId>maven-checkstyle-plugin</artifactId>
+                       <version>3.1.1</version>
+                       <dependencies>
+                           <dependency>
+                               <groupId>com.puppycrawl.tools</groupId>
+                               <artifactId>checkstyle</artifactId>
+                               <version>9.3</version>
+                           </dependency>
+                           <dependency>
+                               <groupId>io.spring.javaformat</groupId>
+                               <artifactId>spring-javaformat-checkstyle</artifactId>
+                               <version>0.0.39</version>
+                           </dependency>
+                       </dependencies>
+                       <executions>
+                           <execution>
+                               <id>checkstyle-validation</id>
+                               <phase>validate</phase>
+                               <inherited>true</inherited>
+                               <configuration>
+                                   <configLocation>io/spring/javaformat/checkstyle/checkstyle.xml</configLocation>
+                                   <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                               </configuration>
+                               <goals>
+                                   <goal>check</goal>
+                               </goals>
+                           </execution>
+                       </executions>
+                   </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+    <!-- Mvn 插件配置：TODO 稍后配置 -->
+    <build>
+        <!-- 插件配置 -->
+        <plugins>
+            <!-- 打包配置 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <outputFileName>${project.artifactId}</outputFileName>
+                </configuration>
+            </plugin>
+            <!-- Spring java format -->
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>${spring-javaformat-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <inherited>true</inherited>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!-- 插件依赖管理 -->
+        <pluginManagement>
+            <plugins>
+                <!-- Spring Boot 项目配置 -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <!-- 最终生成的文件名称  -->
+                        <finalName>${project.artifactId}</finalName>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
